@@ -5,30 +5,15 @@
  * @module xpuz/parsers/jpz
  */
 
-const isString        = require("lodash/isString");
 const isObject        = require("lodash/isObject");
 const Promise         = require("bluebird");
-const fs              = require("fs");
-// fs is stubbed out for browser builds
-const readFile        = fs.readFile ? Promise.promisify(fs.readFile) : () => {};
 const Puzzle          = require("../puzzle");
 
 
 function _parsePuzzle(puzzle) {
 	return new Promise(
 		(resolve, reject) => {
-			if (isString(puzzle)) {
-				// path to puzzle
-				return readFile(puzzle).then(
-					(fileContent) => resolve(new Puzzle(fileContent.toString()))
-				).catch(
-					(ex) => {
-						reject(new Error("Unable to read JPZ puzzle from file " +
-							puzzle + ": " + ex.message));
-					}
-				);
-			}
-			else if (isObject(puzzle)) {
+			if (isObject(puzzle)) {
 				return resolve(new Puzzle(puzzle));
 			}
 			else {

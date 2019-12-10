@@ -5,13 +5,9 @@
  */
 
 const Promise         = require("bluebird");
-const fs              = require("fs");
-// fs is stubbed out for browser builds
-const readFile        = fs.readFile ? Promise.promisify(fs.readFile) : () => {};
 const max             = require("lodash/max");
 const get             = require("lodash/get");
 const isObject        = require("lodash/isObject");
-const isString        = require("lodash/isString");
 const reduce          = require("lodash/reduce");
 const Puzzle          = require("../puzzle");
 
@@ -111,19 +107,7 @@ function _validatePuzzle(puzzle) {
 function _parsePuzzle(puzzle) {
 	return new Promise(
 		(resolve, reject) => {
-			if (isString(puzzle)) {
-				// path to puzzle
-				return readFile(puzzle).then(
-					(fileContent) => JSON.parse(fileContent.toString())
-				).then(
-					(content) => resolve(content)
-				).catch(
-					(ex) => {
-						reject(new Error(`Unable to read IPUZ puzzle from file ${puzzle}: ${ex.message}`));
-					}
-				);
-			}
-			else if (isObject(puzzle)) {
+			if (isObject(puzzle)) {
 				resolve(puzzle);
 				return puzzle;
 			}

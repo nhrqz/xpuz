@@ -1,5 +1,3 @@
-const isString     = require("lodash/isString");
-const fs           = require("fs");
 const BufferReader = require("buffer-reader");
 const iconv        = require("iconv-lite");
 
@@ -17,11 +15,7 @@ class PUZReader {
 	constructor(puz) {
 		let _buffer;
 
-		if (isString(puz)) {
-			// filename
-			_buffer = fs.readFileSync(puz);
-		}
-		else if (puz instanceof Buffer) {
+		if (puz instanceof Buffer) {
 			// Already a buffer
 			_buffer = puz;
 		}
