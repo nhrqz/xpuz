@@ -432,7 +432,7 @@ function _textChecksum(puzzleData, checksum) {
 		}
 	);
 
-	const versionParts = puzzleData.header.version.split(".").map(Number);
+	const versionParts = puzzleData.header.version.split(".").map(x => parseInt(x, 10));
 	// Notes only became part of the checksum starting in version 1.3
 	// (see https://github.com/alexdej/puzpy/blob/6109ad5a54359262010d01f2e0175d928bd70962/puz.py#L360)
 	if (versionParts[0] >= 1 && versionParts[1] >= 3) { // eslint-disable-line no-magic-numbers
