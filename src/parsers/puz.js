@@ -35,6 +35,8 @@ const MAGIC_CHECKSUM_BYTE_LENGTH = 8;
 
 const UNKNOWN1_BYTE_LENGTH = 2;
 
+const VERSION_STRING_BYTE_LENGTH = 4;
+
 const UNKNOWN2_BYTE_LENGTH = 12;
 
 const CHECKSUM_BUFFER_LENGTH = 2;
@@ -111,7 +113,7 @@ function _readHeader(reader, options) {
 
 	data.magicChecksum = reader._readValues(MAGIC_CHECKSUM_BYTE_LENGTH);
 
-	data.version = reader._readString();
+	data.version = reader._readString(VERSION_STRING_BYTE_LENGTH);
 
 	data.unknown1 = reader._readValues(UNKNOWN1_BYTE_LENGTH);
 
@@ -999,6 +1001,7 @@ function _getPuzzleData(path, options) {
 				const puzzleData = _parsePuzzle(path, options);
 
 				const errors = validatePuzzle(puzzleData);
+				// const errors = undefined;
 
 				if (errors !== undefined) {
 					reject(`Invalid puzzle:\n\t${errors.join("\n\t")}`);

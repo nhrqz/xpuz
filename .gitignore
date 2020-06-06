@@ -36,3 +36,5 @@ node_modules
 # Sublime Text project and workspace files
 *.sublime-project
 *.sublime-workspace
+
+*.DS_Store
